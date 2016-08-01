@@ -10,14 +10,7 @@ use Ublaboo\DataGrid\DataGrid;
 class HomepagePresenter extends BasePresenter
 {
 
-    public function startup()
-    {
-	parent::startup();
-	$this->redrawControl('css');
-	$this->redrawControl('js');
-    }
-
-    public function renderDefault()
+	public function renderDefault()
 	{
 	}
 	
@@ -29,16 +22,23 @@ class HomepagePresenter extends BasePresenter
 	    $grid->addColumnText('name', 'Name');
 	    $grid->addInlineEdit()
 		->onControlAdd[] = function($container) {
-		$container->addText('id', '');
-		$container->addmultiSelect('name', '',['foo', 'bar'])
-			->setAttribute('class', 'selectpicker');
+		$container->addText('id', '')->setAttribute('class', 'test');
+		$container->addSelect('name', '',['foo', 'bar'])
+			->setAttribute('class', 'form-control input-sm selectpicker');
 	    };
 
 	    $grid->getInlineEdit()->onSetDefaults[] = function($container, $item) {
 		$container->setDefaults([
 		'id' => $item['id']]);
 	    };
-	    
+	    $grid->addInlineAdd()
+		->setPositionTop()
+		->onControlAdd[] = function($container) {
+		$container->addText('id', '')->setAttribute('readonly');
+		$container->addSelect('name', '',['foo', 'bar'])
+			->setAttribute('class', 'form-control input-sm selectpicker');
+	    };
+	    $grid->getInlineAdd()->onSubmit[] = function($values) {};
 	    $grid->setItemsDetail();
 	    $grid->setTemplateFile(__DIR__ . '/itemsDetail.latte');
 	    $grid->setItemsDetailForm(function(Nette\Forms\Container $container) {
