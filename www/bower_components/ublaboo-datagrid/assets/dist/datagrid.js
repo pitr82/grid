@@ -349,6 +349,7 @@ $.nette.ext('datagrid.sort', {
 
 $.nette.ext('datargid.item_detail', {
   before: function(xhr, settings) {
+            $('.selectpicker').selectpicker('refresh');
     var id, row_detail;
     if (settings.nette && settings.nette.el.attr('data-toggle-detail')) {
       id = settings.nette.el.attr('data-toggle-detail');
