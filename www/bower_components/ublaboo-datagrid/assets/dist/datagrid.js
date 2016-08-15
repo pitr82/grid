@@ -121,7 +121,7 @@ window.datagridSerializeUrl = function(obj, prefix) {
 	for(var p in obj) {
 		if (obj.hasOwnProperty(p)) {
 			var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
-			if(v) {
+			if (v !== null && v !== "") {
 				str.push(typeof v == "object" ?
 					window.datagridSerializeUrl(v, k) :
 					encodeURIComponent(k) + "=" + encodeURIComponent(v));
@@ -349,13 +349,12 @@ $.nette.ext('datagrid.sort', {
 
 $.nette.ext('datargid.item_detail', {
   before: function(xhr, settings) {
-            $('.selectpicker').selectpicker('refresh');
     var id, row_detail;
     if (settings.nette && settings.nette.el.attr('data-toggle-detail')) {
       id = settings.nette.el.attr('data-toggle-detail');
       row_detail = $('.item-detail-' + id);
       if (row_detail.hasClass('loaded')) {
-        if (!row_detail.find('.item-detail-content').size()) {
+        if (!row_detail.find('.item-detail-content').length) {
           row_detail.removeClass('toggled');
           return true;
         }

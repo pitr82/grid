@@ -22,7 +22,8 @@ class HomepagePresenter extends BasePresenter
 	    $grid->addColumnText('name', 'Name');
 	    $grid->addInlineEdit()
 		->onControlAdd[] = function($container) {
-		$container->addText('id', '')->setAttribute('class', 'test');
+		$container->addText('id', '')->setAttribute('class', 'test')
+			->setAttribute('class', 'form-control input-sm');
 		$container->addMultiselect('name', '',['foo', 'bar'])
 			->setAttribute('class', 'form-control input-sm selectpicker');
 	    };
@@ -34,7 +35,8 @@ class HomepagePresenter extends BasePresenter
 	    $grid->addInlineAdd()
 		->setPositionTop()
 		->onControlAdd[] = function($container) {
-		$container->addText('id', '')->setAttribute('readonly');
+		$container->addText('id', '')->setAttribute('readonly')
+			->setAttribute('class', 'form-control input-sm');
 		$container->addMultiselect('name', '',['foo', 'bar'])
 			->setAttribute('class', 'form-control input-sm selectpicker');
 	    };
@@ -47,6 +49,7 @@ class HomepagePresenter extends BasePresenter
 		    $container->addSubmit('save', 'Save')
 			    ->onClick[] = function($button) {};
 	    });
+	    $grid->setDefaultSort(['name' => 'DESC']);
 	    return $grid;
 	}
 
